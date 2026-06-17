@@ -3,457 +3,153 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sommer i samspill – Bitastad</title>
-  <meta name="description" content="Lagoversikt for Sommer i samspill hos Bitastad." />
+  <title>Sommer i samspill</title>
+  <meta name="description" content="Praktisk informasjon og lagoversikt for Sommer i samspill." />
   <style>
-    :root {
-      --gronnkal: #1E4934;
-      --gronnkal-2: #516A58;
-      --tomat: #DD422D;
-      --nepe: #E0DAD4;
-      --noytral: #413E3D;
-      --bg: #f7f6f5;
-      --white: #ffffff;
-      --shadow: 0 18px 50px rgba(30,73,52,.12);
-      --radius-xl: 28px;
-      --max: 1200px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top right, rgba(221,66,45,.12), transparent 26%),
-        radial-gradient(circle at left 20%, rgba(30,73,52,.10), transparent 22%),
-        var(--bg);
-      color: var(--noytral);
-      font-family: Inter, Arial, sans-serif;
-      line-height: 1.5;
-    }
-    h1,h2,h3,p { margin: 0; }
-    a { color: inherit; }
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-    .hero {
-      position: relative; overflow: hidden; padding: 24px 0 48px;
-      background: linear-gradient(180deg, rgba(30,73,52,.95), rgba(30,73,52,.78)); color: var(--white);
-    }
-    .hero:before, .hero:after { content:""; position:absolute; border-radius:999px; filter: blur(8px); opacity:.18; }
-    .hero:before { width: 340px; height:340px; background: var(--tomat); right:-90px; top:10px; }
-    .hero:after { width:280px; height:280px; background:#fff; left:-100px; bottom:-120px; }
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:40px; position:relative; z-index:2; }
-    .brand { display:flex; align-items:center; gap:14px; }
-    .brand-mark {
-      width:50px; height:50px; border-radius:16px; display:grid; place-items:center;
-      background: rgba(255,255,255,.14); backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,.22);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
-    }
-    .brand h2 { font-size:14px; text-transform:uppercase; letter-spacing:.32em; font-weight:800; }
-    .brand small { display:block; opacity:.8; font-size:12px; letter-spacing:.08em; margin-top:4px; }
-    .pill {
-      display:inline-flex; align-items:center; gap:8px;
-      background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16);
-      padding:12px 16px; border-radius:999px; font-size:14px; backdrop-filter: blur(6px);
-    }
-    .hero-grid { display:grid; grid-template-columns: 1.05fr .95fr; gap:28px; align-items:stretch; position:relative; z-index:2; }
-    .hero-copy { padding: 8px 0; }
-    .eyebrow {
-      display:inline-block; margin-bottom:16px; padding:8px 12px; border-radius:999px;
-      background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); font-size:13px; letter-spacing:.08em; text-transform:uppercase;
-    }
-    .hero h1 { font-size: clamp(42px, 7vw, 76px); line-height: .95; letter-spacing: -.04em; font-family: Georgia, 'Times New Roman', serif; margin-bottom: 18px; max-width: 10ch; }
-    .hero p.lead { font-size: clamp(18px, 2vw, 22px); max-width: 60ch; color: rgba(255,255,255,.92); }
-    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
-    .btn {
-      appearance:none; border:0; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:15px 20px; border-radius:16px; font-weight:700; text-decoration:none; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--white); color: var(--gronnkal); box-shadow: 0 12px 30px rgba(0,0,0,.14); }
-    .btn-secondary { background: transparent; color: var(--white); border:1px solid rgba(255,255,255,.35); }
-    .ghost-btn { background:#f3f1ee; color: var(--gronnkal); border:0; }
-    .hero-card {
-      background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); border-radius: var(--radius-xl); padding:22px;
-      backdrop-filter: blur(12px); box-shadow: 0 20px 40px rgba(0,0,0,.12); display:flex; flex-direction:column; justify-content:space-between;
-    }
-    .hero-card h3 { font-size:22px; margin-bottom:10px; }
-    .hero-card p { color: rgba(255,255,255,.88); font-size:16px; }
-    .mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; }
-    .mini-stat { background: rgba(255,255,255,.12); border-radius:18px; padding:16px; border:1px solid rgba(255,255,255,.14); }
-    .mini-stat strong { display:block; font-size:28px; line-height:1; margin-bottom:6px; }
-    .mini-stat span { font-size:14px; opacity:.85; }
-    main { padding: 28px 0 56px; }
-    section { margin-top:28px; }
-    .panel { background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow); padding: clamp(22px, 3vw, 34px); }
-    .finder { display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; align-items:center; }
-    .panel h2 { font-size: clamp(28px,4vw,40px); line-height:1; font-family: Georgia, 'Times New Roman', serif; margin-bottom:14px; color: var(--gronnkal); }
-    .panel .sub { color:#5a5553; max-width:62ch; }
-    .search-wrap { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
-    .input, .select, .textarea {
-      width:100%; border:1px solid #ddd4cd; background:#fff; border-radius:14px; padding:14px 16px; min-height:52px;
-      font:inherit; color:var(--noytral); outline:none; transition: border-color .18s ease, box-shadow .18s ease;
-    }
-    .input:focus, .select:focus, .textarea:focus { border-color: var(--gronnkal-2); box-shadow: 0 0 0 4px rgba(30,73,52,.10); }
-    .search-wrap .input { flex: 1 1 280px; }
-    .result-badge {
-      display:flex; min-height:100%; align-items:center; justify-content:center; text-align:center;
-      background: linear-gradient(135deg, rgba(30,73,52,.08), rgba(221,66,45,.06)); border:1px dashed rgba(30,73,52,.26); border-radius:24px; padding:20px;
-    }
-    .result-badge strong { display:block; font-size:18px; color: var(--gronnkal); margin-bottom:6px; }
-    .teams-head { display:flex; align-items:end; justify-content:space-between; gap:14px; margin-bottom:18px; }
-    .teams-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; }
-    .team-card {
-      background: linear-gradient(180deg, #fff, #faf8f6); border:1px solid #ece5df; border-radius:24px; padding:22px;
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; scroll-margin-top:120px;
-    }
-    .team-card:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(30,73,52,.08); }
-    .team-card.highlight { border-color: rgba(221,66,45,.6); box-shadow: 0 18px 40px rgba(221,66,45,.18); background: linear-gradient(180deg, #fff, #fff6f3); }
-    .card-top { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:14px; }
-    .team-card .eyebrow { background:#f2efea; color: var(--gronnkal); border:0; margin-bottom:10px; }
-    .team-card h3 { font-size:28px; color: var(--gronnkal); line-height:1; }
-    .team-count {
-      min-width:46px; height:46px; border-radius:14px; display:grid; place-items:center; font-weight:800; color: var(--white);
-      background: linear-gradient(145deg, var(--gronnkal), #516A58); box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
-    }
-    .member-list { list-style:none; padding:0; margin:0; display:grid; gap:12px; }
-    .member-list li { padding:12px 14px; border-radius:14px; background:#fff; border:1px solid #efe8e2; display:flex; align-items:center; gap:10px; }
-    .member-list li:before { content:'•'; color: var(--tomat); font-weight:700; }
-    .report-grid { display:grid; grid-template-columns: .8fr 1.2fr; gap:18px; align-items:start; }
-    .info-card {
-      background: linear-gradient(180deg, rgba(30,73,52,.96), rgba(30,73,52,.90)); color:#fff; border-radius:24px; padding:24px; min-height:100%;
-    }
-    .info-card p { color: rgba(255,255,255,.88); }
-    .list-plain { list-style:none; padding:0; margin:16px 0 0; display:grid; gap:10px; }
-    .list-plain li { display:flex; gap:10px; align-items:flex-start; }
-    .list-plain li:before { content:'✓'; color:#fff; flex:0 0 auto; margin-top:.1em; }
-    .form-card { background:#fff; border:1px solid #ece5df; border-radius:24px; padding:22px; }
-    .form-grid { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
-    .field { display:grid; gap:8px; }
-    .field label { font-size:14px; font-weight:600; color: var(--gronnkal); }
-    .textarea { min-height:128px; resize:vertical; }
-    .segmented { display:flex; flex-wrap:wrap; gap:10px; }
-    .segmented label { border:1px solid #ddd4cd; border-radius:999px; padding:10px 14px; display:flex; gap:8px; align-items:center; cursor:pointer; font-weight:600; color: var(--noytral); }
-    .segmented input { accent-color: var(--gronnkal); }
-    .form-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
-    .small-note { margin-top:10px; font-size:13px; color:#6f6865; }
-    .success { display:none; margin-top:12px; padding:12px 14px; border-radius:14px; background:#edf6f0; color:var(--gronnkal); border:1px solid #c6ddcf; }
-    .footer { text-align:center; padding:28px 0 50px; color:#706865; font-size:14px; }
-    @media (max-width:1024px) {
-      .hero-grid, .finder, .report-grid { grid-template-columns:1fr; }
-      .teams-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (max-width:720px) {
-      .wrap { padding: 0 16px; }
-      .topbar { flex-direction:column; align-items:flex-start; }
-      .hero { padding-bottom:34px; }
-      .hero h1 { max-width:none; }
-      .teams-grid, .form-grid { grid-template-columns:1fr; }
-      .pill { width:100%; justify-content:center; }
-      .form-actions .btn { width:100%; }
-      .team-card h3 { font-size:24px; }
-    }
+    :root { --green:#1E4934; --green-2:#516A58; --red:#DD422D; --text:#413E3D; --bg:#f6f5f3; --white:#fff; --shadow:0 18px 50px rgba(30,73,52,.10); --radius-xl:28px; --max:1180px; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; font-family: Inter, Arial, sans-serif; color:var(--text); line-height:1.5; background:radial-gradient(circle at top right, rgba(221,66,45,.11), transparent 24%), radial-gradient(circle at left 18%, rgba(30,73,52,.08), transparent 18%), var(--bg); }
+    h1,h2,h3,p { margin:0; } a { color:inherit; } .wrap { max-width: var(--max); margin:0 auto; padding:0 24px; }
+    .hero { position:relative; overflow:hidden; color:var(--white); background:linear-gradient(180deg, rgba(30,73,52,.96), rgba(30,73,52,.84)); padding:26px 0 52px; }
+    .hero:before,.hero:after { content:""; position:absolute; border-radius:999px; opacity:.18; filter:blur(8px); }
+    .hero:before { width:340px; height:340px; background:var(--red); right:-90px; top:-20px; }
+    .hero:after { width:250px; height:250px; background:rgba(255,255,255,.7); left:-80px; bottom:-90px; }
+    .topbar { display:flex; align-items:center; justify-content:flex-end; gap:16px; position:relative; z-index:1; margin-bottom:36px; }
+    .pill { display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); color:var(--white); border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; backdrop-filter:blur(6px); }
+    .eyebrow { display:inline-block; margin-bottom:16px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
+    .eyebrow.small { background:#f0ede8; color:var(--green); border:0; margin-bottom:10px; }
+    .hero-copy { position:relative; z-index:1; max-width:940px; }
+    .hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(42px, 7vw, 76px); line-height:.95; letter-spacing:-.04em; margin-bottom:18px; }
+    .hero p.lead { font-size: clamp(18px, 2.1vw, 22px); max-width:72ch; color:rgba(255,255,255,.94); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    .btn { border:0; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; padding:15px 20px; border-radius:16px; font-weight:700; transition:transform .18s ease, box-shadow .18s ease, background .18s ease; }
+    .btn:hover { transform:translateY(-1px); } .btn-primary { background:var(--white); color:var(--green); box-shadow:0 12px 30px rgba(0,0,0,.14); } .btn-secondary { background:rgba(255,255,255,.12); color:var(--white); border:1px solid rgba(255,255,255,.22); } .btn-ghost { background:#f0efe9; color:var(--green); }
+    main { padding:28px 0 56px; } section { margin-top:28px; } .panel { background:var(--white); border-radius:var(--radius-xl); box-shadow:var(--shadow); padding: clamp(22px, 3vw, 34px); } .panel h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(30px, 4vw, 42px); line-height:1; margin-bottom:12px; color:var(--green); } .sub { color:#5d5856; max-width:78ch; }
+    .practical-box { margin-top:18px; background:linear-gradient(180deg,#fff,#faf8f6); border:1px solid #ece5df; border-radius:24px; padding:24px; } .practical-box p { font-size:18px; max-width:72ch; }
+    .finder { display:grid; grid-template-columns:1fr; gap:12px; align-items:start; } .search-wrap { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; } .input, .textarea { width:100%; border:1px solid #ddd4cd; background:#fff; border-radius:14px; padding:14px 16px; min-height:52px; font:inherit; color:var(--text); outline:none; transition:border-color .18s ease, box-shadow .18s ease; } .input:focus, .textarea:focus { border-color:var(--green-2); box-shadow:0 0 0 4px rgba(30,73,52,.10); } .search-wrap .input { flex:1 1 280px; } .search-status { margin-top:8px; min-height:26px; font-weight:600; color:var(--green); } .search-status.dim { font-weight:500; color:#6a6461; }
+    .teams-head { display:flex; align-items:end; justify-content:space-between; gap:14px; margin-bottom:18px; } .teams-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; } .team-card { background:linear-gradient(180deg,#fff,#faf8f6); border:1px solid #ece5df; border-radius:24px; padding:22px; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; scroll-margin-top:120px; } .team-card:hover { transform:translateY(-2px); box-shadow:0 18px 40px rgba(30,73,52,.08); } .team-card.highlight { border-color:rgba(221,66,45,.62); box-shadow:0 18px 40px rgba(221,66,45,.16); background:linear-gradient(180deg,#fff,#fff6f3); } .card-top h3 { font-size:28px; color:var(--green); line-height:1; } .member-list { list-style:none; padding:0; margin:0; display:grid; gap:12px; } .member-list li { padding:12px 14px; border-radius:14px; background:#fff; border:1px solid #efe8e2; display:flex; align-items:center; gap:10px; } .member-list li:before { content:'•'; color:var(--red); font-weight:700; }
+    .form-card { background:linear-gradient(180deg, rgba(30,73,52,.96), rgba(30,73,52,.90)); color:var(--white); border-radius:24px; padding:24px; } .form-card .sub { color:rgba(255,255,255,.90); max-width:none; margin-bottom:18px; } .form-card .eyebrow { margin-bottom:14px; } .field { display:grid; gap:8px; margin-top:14px; } .field:first-of-type { margin-top:0; } .field label { font-size:14px; font-weight:600; color:var(--white); } .textarea { min-height:128px; resize:vertical; } .segmented { display:flex; flex-wrap:wrap; gap:10px; } .segmented label { border:1px solid rgba(255,255,255,.28); border-radius:999px; padding:10px 14px; display:flex; gap:8px; align-items:center; cursor:pointer; font-weight:600; color:var(--white); background:rgba(255,255,255,.08); } .segmented input { accent-color:#fff; } .form-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; } .small-note { margin-top:10px; font-size:13px; color:rgba(255,255,255,.85); } .footer { text-align:center; padding:28px 0 50px; color:#706865; font-size:14px; }
+    @media (max-width:1024px) { .teams-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } } @media (max-width:720px) { .wrap { padding:0 16px; } .topbar { justify-content:flex-start; } .hero-actions .btn { width:100%; } .teams-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap">
-      <div class="topbar">
-        <div class="brand" aria-label="Bitastad">
-          <div class="brand-mark" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="8" y="8" width="48" height="48" rx="16" fill="rgba(255,255,255,.10)"/>
-              <path d="M20 40c9-1 13-10 14-20 7 3 10 10 10 16 0 9-6 16-16 16-7 0-12-4-14-10 2 0 4-.5 6-2Z" fill="white" opacity=".95"/>
-              <path d="M26 42c8-4 12-11 13-22" stroke="#DD422D" stroke-width="4" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <h2>Bitastad</h2>
-            <small>Sommer i samspill</small>
-          </div>
-        </div>
-        <div class="pill">7 lag • 40 deltakere • Samspill i fokus</div>
-      </div>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">Velkommen</span>
-          <h1>Sommer i samspill</h1>
-          <p class="lead">For å øve på samspill må vi selvfølgelig ha noen lagkonkurranser. Disse er lavterskel, og vi kommer langt med ok skotøy og en stor dose samspill.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#lagene">Finn laget ditt</a>
-            <a class="btn btn-secondary" href="#meld-fra">Meld fra om noe er feil</a>
-          </div>
-        </div>
-        <aside class="hero-card">
-          <div>
-            <h3>Bygg lagfølelse allerede nå</h3>
-            <p>Her finner alle laget sitt på ett sted. Søk på navn, bla i lagene, eller send inn endring hvis noe ikke stemmer.</p>
-          </div>
-          <div class="mini-grid">
-            <div class="mini-stat"><strong>40</strong><span>personer fordelt på 7 lag</span></div>
-            <div class="mini-stat"><strong>Lavterskel</strong><span>ok skotøy + masse samspill</span></div>
-            <div class="mini-stat"><strong>Søk</strong><span>finn navnet ditt med en gang</span></div>
-            <div class="mini-stat"><strong>Gi beskjed</strong><span>enkelt e-postutkast nederst</span></div>
-          </div>
-        </aside>
+      <div class="topbar"><div class="pill">40 påmeldte. 7 lag. Samspill i fokus</div></div>
+      <div class="hero-copy">
+        <span class="eyebrow">Velkommen</span>
+        <h1>Sommer i samspill</h1>
+        <p class="lead">Nå er det ikke lenge til vi står på RIBen med snuten mot Frosta for en ettermiddag og kveld fylt med aktiviteter, god mat og godt samspill. Her inne vil dere finne informasjon dere trenger! Hvem skal du være på lag med? Hvor skal du møte opp? Hvem kommer? Alt finner du her.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#praktisk">Praktisk informasjon</a><a class="btn btn-secondary" href="#meld-fra">Meld fra om feil</a><a class="btn btn-secondary" href="#lagene">Finn laget ditt</a></div>
       </div>
     </div>
   </header>
+
   <main>
     <div class="wrap">
-      <section class="panel finder" id="lagene">
-        <div>
-          <h2>Finn laget ditt</h2>
-          <p class="sub">Lyst å bygge en lagfølelse allerede nå? Skriv inn navnet ditt under, så markerer siden laget ditt automatisk.</p>
-          <div class="search-wrap">
-            <input class="input" id="nameSearch" type="text" placeholder="Søk etter navn, for eksempel Mia Kiønig Vollan" aria-label="Søk etter navn" />
-            <button class="btn ghost-btn" type="button" id="clearSearch">Nullstill</button>
-          </div>
-        </div>
-        <div class="result-badge" id="searchResult">
-          <div><strong>Klar for å finne laget</strong><span>Skriv inn et navn, så viser vi riktig lag her.</span></div>
-        </div>
-      </section>
-      <section class="panel">
-        <div class="teams-head">
-          <div>
-            <h2>Lagoversikt</h2>
-            <p class="sub">Alle lag ligger under. Kortene er mobilvennlige og enkle å dele videre.</p>
-          </div>
-        </div>
-        <div class="teams-grid" id="teamGrid">
-    <article class="team-card" id="lag-1" data-team="lag 1" data-members="ane standal frantzen|lilli lysholm|linda bratsberg|ole røttereng|ingrid rønning">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 1</h3>
-        </div>
-        <span class="team-count">5</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="ane standal frantzen">Ane Standal Frantzen</li>
-<li data-member="lilli lysholm">Lilli Lysholm</li>
-<li data-member="linda bratsberg">Linda Bratsberg</li>
-<li data-member="ole røttereng">Ole Røttereng</li>
-<li data-member="ingrid rønning">Ingrid Rønning</li>
-      </ul>
-    </article>
-    
-    <article class="team-card" id="lag-2" data-team="lag 2" data-members="øyvind eidem|sindre helde kjølseth|eric five|therese karlsen|stine stavran|amelia berlin">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 2</h3>
-        </div>
-        <span class="team-count">6</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="øyvind eidem">Øyvind Eidem</li>
-<li data-member="sindre helde kjølseth">Sindre Helde Kjølseth</li>
-<li data-member="eric five">Eric Five</li>
-<li data-member="therese karlsen">Therese Karlsen</li>
-<li data-member="stine stavran">Stine Stavran</li>
-<li data-member="amelia berlin">Amelia Berlin</li>
-      </ul>
-    </article>
-    
-    <article class="team-card" id="lag-3" data-team="lag 3" data-members="ida jønland|mari strandheim|tonje dahlø|jan yngve holen|lorents rishaug|frida andersen">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 3</h3>
-        </div>
-        <span class="team-count">6</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="ida jønland">Ida Jønland</li>
-<li data-member="mari strandheim">Mari Strandheim</li>
-<li data-member="tonje dahlø">Tonje Dahlø</li>
-<li data-member="jan yngve holen">Jan Yngve Holen</li>
-<li data-member="lorents rishaug">Lorents Rishaug</li>
-<li data-member="frida andersen">Frida Andersen</li>
-      </ul>
-    </article>
-    
-    <article class="team-card" id="lag-4" data-team="lag 4" data-members="trine sjaastad|finn dybdalen|lotte øystrøm|simen heie torgersen|ramona wenaas">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 4</h3>
-        </div>
-        <span class="team-count">5</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="trine sjaastad">Trine Sjaastad</li>
-<li data-member="finn dybdalen">Finn Dybdalen</li>
-<li data-member="lotte øystrøm">Lotte Øystrøm</li>
-<li data-member="simen heie torgersen">Simen Heie Torgersen</li>
-<li data-member="ramona wenaas">Ramona Wenaas</li>
-      </ul>
-    </article>
-    
-    <article class="team-card" id="lag-5" data-team="lag 5" data-members="marius andre larsen|ylva konstad nybrott|magnus wæraas|hege lund|adrian løvold|simon thomas reid">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 5</h3>
-        </div>
-        <span class="team-count">6</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="marius andre larsen">Marius Andre Larsen</li>
-<li data-member="ylva konstad nybrott">Ylva Konstad Nybrott</li>
-<li data-member="magnus wæraas">Magnus Wæraas</li>
-<li data-member="hege lund">Hege Lund</li>
-<li data-member="adrian løvold">Adrian Løvold</li>
-<li data-member="simon thomas reid">Simon Thomas Reid</li>
-      </ul>
-    </article>
-    
-    <article class="team-card" id="lag-6" data-team="lag 6" data-members="mia kiønig vollan|christian heger|admin tobias johnsen|torkil helmersen|marielle frank|kamilla larsen">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 6</h3>
-        </div>
-        <span class="team-count">6</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="mia kiønig vollan">Mia Kiønig Vollan</li>
-<li data-member="christian heger">Christian Heger</li>
-<li data-member="admin tobias johnsen">Admin Tobias Johnsen</li>
-<li data-member="torkil helmersen">Torkil Helmersen</li>
-<li data-member="marielle frank">Marielle Frank</li>
-<li data-member="kamilla larsen">Kamilla Larsen</li>
-      </ul>
-    </article>
-    
-    <article class="team-card" id="lag-7" data-team="lag 7" data-members="carl magnus skutle|siv mykland|david aune|monica smenes|ingrid kristin viken|thomas berge nilssen">
-      <div class="card-top">
-        <div>
-          <span class="eyebrow">Sommer i samspill</span>
-          <h3>Lag 7</h3>
-        </div>
-        <span class="team-count">6</span>
-      </div>
-      <ul class="member-list">
-        <li data-member="carl magnus skutle">Carl Magnus Skutle</li>
-<li data-member="siv mykland">Siv Mykland</li>
-<li data-member="david aune">David Aune</li>
-<li data-member="monica smenes">Monica Smenes</li>
-<li data-member="ingrid kristin viken">Ingrid Kristin Viken</li>
-<li data-member="thomas berge nilssen">Thomas Berge Nilssen</li>
-      </ul>
-    </article>
-    </div>
-      </section>
-      <section class="report-grid" id="meld-fra">
-        <div class="info-card">
-          <span class="eyebrow">Trenger du endring?</span>
-          <h2 style="color:white; margin-bottom:12px;">Noe som ikke stemmer?</h2>
-          <p>Hvis noen er satt i feil lag, mangler i oversikten, eller ikke skal delta – send inn en rask beskjed her. Knappen lager et ferdig e-postutkast.</p>
-          <ul class="list-plain">
-            <li>Velg hva saken gjelder</li>
-            <li>Fyll inn navn og lag</li>
-            <li>Åpne ferdig e-postutkast</li>
-            <li>Eller kopier teksten og lim den inn i Teams/e-post</li>
-          </ul>
-        </div>
-        <div class="form-card">
-          <h2 style="margin-bottom:8px;">Meld fra om endring</h2>
-          <p class="sub" style="margin-bottom:18px;">Skjemaet under åpner et ferdig e-postutkast til <a href="mailto:mia.vollan@bitastad.no">mia.vollan@bitastad.no</a>.</p>
-          <form id="changeForm" onsubmit="return false;">
-            <div class="field">
-              <label>Hva gjelder det?</label>
-              <div class="segmented">
-                <label><input type="radio" name="issue" value="Jeg er satt opp på feil lag" checked> Feil lag</label>
-                <label><input type="radio" name="issue" value="Jeg mangler i oversikten"> Mangler i oversikten</label>
-                <label><input type="radio" name="issue" value="Jeg skal ikke delta"> Skal ikke delta</label>
-                <label><input type="radio" name="issue" value="Annet"> Annet</label>
-              </div>
-            </div>
-            <div class="form-grid" style="margin-top:16px;">
-              <div class="field">
-                <label for="fullName">Navn</label>
-                <input class="input" id="fullName" type="text" placeholder="Skriv inn navn" />
-              </div>
-              <div class="field">
-                <label for="teamSelect">Lag</label>
-                <select class="select" id="teamSelect"><option value="">Velg lag</option><option value="Lag 1">Lag 1</option><option value="Lag 2">Lag 2</option><option value="Lag 3">Lag 3</option><option value="Lag 4">Lag 4</option><option value="Lag 5">Lag 5</option><option value="Lag 6">Lag 6</option><option value="Lag 7">Lag 7</option></select>
-              </div>
-            </div>
-            <div class="field" style="margin-top:14px;">
-              <label for="details">Kommentar / ønsket endring</label>
-              <textarea class="textarea" id="details" placeholder="Beskriv kort hva som bør endres"></textarea>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-primary" type="button" id="emailBtn">Åpne e-postutkast</button>
-              <button class="btn ghost-btn" type="button" id="copyBtn">Kopier tekst</button>
-            </div>
-            <div class="success" id="copySuccess">Teksten er kopiert – lim den rett inn i Teams eller e-post.</div>
-            <p class="small-note">Tips: Hvis e-postklienten ikke åpner automatisk, bruk «Kopier tekst» og send meldingen der det passer.</p>
-          </form>
-        </div>
-      </section>
+      <section class="panel" id="praktisk"><h2>Praktisk informasjon</h2><div class="practical-box"><p>13.30 går vi samlet fra kontoret i behagelige sko og hverdagsklær. Pakk med deg et sommerpent antrekk til middagen. Ettermiddagen vil innholde både lavterskel aktiviteter, en seanse på samspill og en hyggelig middag.</p></div></section>
+
+      <section class="panel finder" id="lagene"><div><h2>Finn laget ditt</h2><p class="sub">For å øve på samspill må vi selvfølgelig ha noen lagkonkurranser. Disse er lavterskel, og vi kommer langt med ok skotøy og en stor dose samspill. Lyst å bygge en lagfølelse allerede nå? Skriv inn navnet ditt under, så ser du hvilket lag du er en del av!</p><div class="search-wrap"><input class="input" id="nameSearch" type="text" placeholder="Søk etter navn, for eksempel Mia Kiønig Vollan" aria-label="Søk etter navn" autocomplete="off" /><button class="btn btn-ghost" type="button" id="clearSearch">Nullstill</button></div><div class="search-status dim" id="searchStatus">Skriv inn et navn, så viser vi laget direkte her.</div></div></section>
+
+      <section class="panel"><div class="teams-head"><div><h2>Lagoversikt</h2></div></div><div class="teams-grid" id="teamGrid"><article class="team-card" id="lag-1"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 1</h3></div><ul class="member-list"><li>Ane Standal Frantzen</li><li>Lilli Lysholm</li><li>Linda Bratsberg</li><li>Ole Røttereng</li><li>Ingrid Rønning</li></ul></article><article class="team-card" id="lag-2"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 2</h3></div><ul class="member-list"><li>Øyvind Eidem</li><li>Sindre Helde Kjølseth</li><li>Eric Five</li><li>Therese Karlsen</li><li>Stine Stavran</li><li>Amelia Berlin</li></ul></article><article class="team-card" id="lag-3"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 3</h3></div><ul class="member-list"><li>Ida Jønland</li><li>Mari Strandheim</li><li>Tonje Dahlø</li><li>Jan Yngve Holen</li><li>Lorents Rishaug</li><li>Frida Andersen</li></ul></article><article class="team-card" id="lag-4"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 4</h3></div><ul class="member-list"><li>Trine Sjaastad</li><li>Finn Dybdalen</li><li>Lotte Øystrøm</li><li>Simen Heie Torgersen</li><li>Ramona Wenaas</li></ul></article><article class="team-card" id="lag-5"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 5</h3></div><ul class="member-list"><li>Marius Andre Larsen</li><li>Ylva Konstad Nybrott</li><li>Magnus Wæraas</li><li>Hege Lund</li><li>Adrian Løvold</li><li>Simon Thomas Reid</li></ul></article><article class="team-card" id="lag-6"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 6</h3></div><ul class="member-list"><li>Mia Kiønig Vollan</li><li>Christian Heger</li><li>Admin Tobias Johnsen</li><li>Torkil Helmersen</li><li>Marielle Frank</li><li>Kamilla Larsen</li></ul></article><article class="team-card" id="lag-7"><div class="card-top"><span class="eyebrow small">Sommer i samspill</span><h3>Lag 7</h3></div><ul class="member-list"><li>Carl Magnus Skutle</li><li>Siv Mykland</li><li>David Aune</li><li>Monica Smenes</li><li>Ingrid Kristin Viken</li><li>Thomas Berge Nilssen</li></ul></article></div></section>
+
+      <section class="panel" id="meld-fra"><div class="form-card"><span class="eyebrow">Noe som ikke stemmer?</span><p class="sub">Mangler du i oversikten? Skal du ikke delta likevel? Noe annet du lurer på? Meld fra under.</p>
+        <form id="changeForm" onsubmit="return false;">
+          <div class="field"><label>Hva gjelder det?</label><div class="segmented"><label><input type="radio" name="issue" value="Jeg har ikke fått et lag" checked> Jeg har ikke fått et lag</label><label><input type="radio" name="issue" value="Jeg kan ikke delta likevel"> Jeg kan ikke delta likevel</label><label><input type="radio" name="issue" value="Annet"> Annet</label></div></div>
+          <div class="field"><label for="fullName">Navn</label><input class="input" id="fullName" type="text" placeholder="Skriv inn navn" /></div>
+          <div class="field"><label for="details">Kommentar / ønsket endring</label><textarea class="textarea" id="details" placeholder="Beskriv kort hva det gjelder"></textarea></div>
+          <div class="form-actions"><button class="btn btn-primary" type="button" id="emailBtn">Åpne e-postutkast</button><button class="btn btn-ghost" type="button" id="copyBtn">Kopier tekst</button></div>
+          <p class="small-note">Hvis e-postutkast ikke åpner, bruk «Kopier tekst» og lim inn i Outlook eller Teams.</p>
+        </form></div></section>
     </div>
   </main>
+
   <footer class="footer">Bitastad • Sommer i samspill</footer>
+
   <script>
-    const cards = [...document.querySelectorAll('.team-card')];
+    const SEARCH_DATA = [{"team": "Lag 1", "cardId": "lag-1", "members": [{"raw": "Ane Standal Frantzen", "norm": "ane standal frantzen"}, {"raw": "Lilli Lysholm", "norm": "lilli lysholm"}, {"raw": "Linda Bratsberg", "norm": "linda bratsberg"}, {"raw": "Ole Røttereng", "norm": "ole rottereng"}, {"raw": "Ingrid Rønning", "norm": "ingrid ronning"}]}, {"team": "Lag 2", "cardId": "lag-2", "members": [{"raw": "Øyvind Eidem", "norm": "oyvind eidem"}, {"raw": "Sindre Helde Kjølseth", "norm": "sindre helde kjolseth"}, {"raw": "Eric Five", "norm": "eric five"}, {"raw": "Therese Karlsen", "norm": "therese karlsen"}, {"raw": "Stine Stavran", "norm": "stine stavran"}, {"raw": "Amelia Berlin", "norm": "amelia berlin"}]}, {"team": "Lag 3", "cardId": "lag-3", "members": [{"raw": "Ida Jønland", "norm": "ida jonland"}, {"raw": "Mari Strandheim", "norm": "mari strandheim"}, {"raw": "Tonje Dahlø", "norm": "tonje dahlo"}, {"raw": "Jan Yngve Holen", "norm": "jan yngve holen"}, {"raw": "Lorents Rishaug", "norm": "lorents rishaug"}, {"raw": "Frida Andersen", "norm": "frida andersen"}]}, {"team": "Lag 4", "cardId": "lag-4", "members": [{"raw": "Trine Sjaastad", "norm": "trine sjaastad"}, {"raw": "Finn Dybdalen", "norm": "finn dybdalen"}, {"raw": "Lotte Øystrøm", "norm": "lotte oystrom"}, {"raw": "Simen Heie Torgersen", "norm": "simen heie torgersen"}, {"raw": "Ramona Wenaas", "norm": "ramona wenaas"}]}, {"team": "Lag 5", "cardId": "lag-5", "members": [{"raw": "Marius Andre Larsen", "norm": "marius andre larsen"}, {"raw": "Ylva Konstad Nybrott", "norm": "ylva konstad nybrott"}, {"raw": "Magnus Wæraas", "norm": "magnus waeraas"}, {"raw": "Hege Lund", "norm": "hege lund"}, {"raw": "Adrian Løvold", "norm": "adrian lovold"}, {"raw": "Simon Thomas Reid", "norm": "simon thomas reid"}]}, {"team": "Lag 6", "cardId": "lag-6", "members": [{"raw": "Mia Kiønig Vollan", "norm": "mia kionig vollan"}, {"raw": "Christian Heger", "norm": "christian heger"}, {"raw": "Admin Tobias Johnsen", "norm": "admin tobias johnsen"}, {"raw": "Torkil Helmersen", "norm": "torkil helmersen"}, {"raw": "Marielle Frank", "norm": "marielle frank"}, {"raw": "Kamilla Larsen", "norm": "kamilla larsen"}]}, {"team": "Lag 7", "cardId": "lag-7", "members": [{"raw": "Carl Magnus Skutle", "norm": "carl magnus skutle"}, {"raw": "Siv Mykland", "norm": "siv mykland"}, {"raw": "David Aune", "norm": "david aune"}, {"raw": "Monica Smenes", "norm": "monica smenes"}, {"raw": "Ingrid Kristin Viken", "norm": "ingrid kristin viken"}, {"raw": "Thomas Berge Nilssen", "norm": "thomas berge nilssen"}]}];
+    const cards = Array.from(document.querySelectorAll('.team-card'));
     const searchInput = document.getElementById('nameSearch');
     const clearBtn = document.getElementById('clearSearch');
-    const result = document.getElementById('searchResult');
-    function clearHighlights() {
-      cards.forEach(card => card.classList.remove('highlight'));
-    }
-    function updateSearch() {
-      const query = searchInput.value.trim().toLowerCase();
-      clearHighlights();
-      if (!query) {
-        result.innerHTML = '<div><strong>Klar for å finne laget</strong><span>Skriv inn et navn, så viser vi riktig lag her.</span></div>';
-        return;
-      }
-      const match = cards.find(card => card.dataset.members.includes(query));
-      if (match) {
-        match.classList.add('highlight');
-        const teamName = match.querySelector('h3').textContent;
-        result.innerHTML = '<div><strong>' + teamName + '</strong><span>' + searchInput.value.trim() + ' er funnet i dette laget.</span></div>';
-        match.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        result.innerHTML = '<div><strong>Ingen treff</strong><span>Vi fant ingen med navnet «' + searchInput.value.trim() + '». Sjekk stavemåten, eller bruk skjemaet nederst.</span></div>';
-      }
-    }
-    searchInput.addEventListener('input', updateSearch);
-    clearBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      updateSearch();
-      searchInput.focus();
-    });
+    const searchStatus = document.getElementById('searchStatus');
     const emailBtn = document.getElementById('emailBtn');
     const copyBtn = document.getElementById('copyBtn');
-    const success = document.getElementById('copySuccess');
+
+    function normalize(value) {
+      return (value || '')
+        .toLowerCase()
+        .trim()
+        .replace(/æ/g, 'ae')
+        .replace(/ø/g, 'o')
+        .replace(/å/g, 'a')
+        .normalize('NFKD')
+        .replace(/[̀-ͯ]/g, '')
+        .replace(/\s+/g, ' ');
+    }
+
+    function resetHighlights() { cards.forEach(card => card.classList.remove('highlight')); }
+
+    function updateSearch() {
+      const raw = searchInput.value || '';
+      const query = normalize(raw);
+      resetHighlights();
+      if (!query) { searchStatus.className = 'search-status dim'; searchStatus.textContent = 'Skriv inn et navn, så viser vi laget direkte her.'; return; }
+      let found = null;
+      for (const record of SEARCH_DATA) {
+        for (const member of record.members) {
+          if (member.norm.indexOf(query) !== -1) { found = { team: record.team, cardId: record.cardId, member: member.raw }; break; }
+        }
+        if (found) break;
+      }
+      if (found) {
+        const card = document.getElementById(found.cardId);
+        if (card) { card.classList.add('highlight'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        searchStatus.className = 'search-status';
+        searchStatus.textContent = found.member + ' er en del av ' + found.team + '.';
+      } else {
+        searchStatus.className = 'search-status dim';
+        searchStatus.textContent = 'Vi fant ingen med navnet «' + raw.trim() + '». Sjekk stavemåten, eller bruk skjemaet nederst.';
+      }
+    }
+
     function buildMessage() {
       const issue = document.querySelector('input[name="issue"]:checked')?.value || 'Annet';
       const fullName = document.getElementById('fullName').value.trim() || '[sett inn navn]';
-      const team = document.getElementById('teamSelect').value || '[ikke valgt]';
       const details = document.getElementById('details').value.trim() || '[skriv ønsket endring]';
-      const subject = 'Sommer i samspill – endring i lagoversikt (' + issue + ')';
-      const rawText = 'Hei!\n\nJeg melder fra om en endring i lagoversikten for Sommer i samspill.\n\nHva gjelder det: ' + issue + '\nNavn: ' + fullName + '\nLag: ' + team + '\nKommentar: ' + details + '\n\nTakk!';
+      const subject = 'Sommer i samspill – endring i oversikt (' + issue + ')';
+      const rawText = 'Hei!
+
+Jeg melder fra om en endring / henvendelse knyttet til Sommer i samspill.
+
+Hva gjelder det: ' + issue + '
+Navn: ' + fullName + '
+Kommentar: ' + details + '
+
+Takk!';
       return { subject, rawText };
     }
-    emailBtn.addEventListener('click', () => {
+
+    function openMail() {
       const data = buildMessage();
       const href = 'mailto:mia.vollan@bitastad.no?subject=' + encodeURIComponent(data.subject) + '&body=' + encodeURIComponent(data.rawText);
-      window.location.href = href;
-    });
-    copyBtn.addEventListener('click', async () => {
+      const a = document.createElement('a');
+      a.href = href;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    async function copyText() {
       const data = buildMessage();
-      try {
-        await navigator.clipboard.writeText(data.rawText);
-        success.style.display = 'block';
-        setTimeout(() => success.style.display = 'none', 2500);
-      } catch (e) {
-        alert('Klarte ikke å kopiere automatisk. Marker teksten manuelt etter å ha trykket på e-postknappen.');
-      }
-    });
+      try { await navigator.clipboard.writeText(data.rawText); alert('Teksten er kopiert. Lim den inn i Outlook eller Teams.'); }
+      catch (e) { alert('Klarte ikke å kopiere automatisk. Marker og kopier teksten manuelt.'); }
+    }
+
+    searchInput.addEventListener('input', updateSearch);
+    clearBtn.addEventListener('click', () => { searchInput.value = ''; updateSearch(); searchInput.focus(); });
+    emailBtn.addEventListener('click', openMail);
+    copyBtn.addEventListener('click', copyText);
   </script>
 </body>
 </html>
